@@ -1,0 +1,29 @@
+@import "@angular/material/prebuilt-themes/purple-green.css";
+
+p {
+  color: white;
+}
+
+::ng-deep .mat-form-field-underline {
+  background-color: white !important;
+}
+
+.mat-form-field-underline.mat-disabled {
+  background-color: red !important;
+}
+
+::ng-deep .mat-form-field-label {
+  /*change color of label*/
+  color: white !important;
+}
+
+:host /deep/ .mat-select-value-text {
+  color: white !important;
+}
+
+.btn.btn-custom:hover,
+.btn.btn-custom:focus {
+  color: red !important;
+  background-color: #181818;
+  outline-color: red !important;
+}

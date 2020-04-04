@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand-md navbar-custom" style="z-index: 6">
+  <div class="navbar-collapse w-100 order-1 order-md-0">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" style="color: white">Team: Full --force</a>
+      </li>
+    </ul>
+  </div>
+  <div class="mx-auto order-0">
+    <a routerLink="/" class="navbar-brand mx-auto">
+      <h1 style="color: white">Space Trader</h1>
+    </a>
+  </div>
+  <div class="navbar-collapse w-100 order-3">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a routerLink="/char-creation" id="fade" class="nav-link"
+          >Start New Game!</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          href="https://github.gatech.edu/rfaulkner7/SpaceTrader"
+          target="_blank"
+          id="fade"
+          class="nav-link"
+          >Github Repo</a
+        >
+      </li>
+      <li class="nav-item">
+        <a id="fade" class="nav-link">About</a>
+      </li>
+      <li class="nav-item">
+        <a id="fade" class="nav-link">Retrieve Key</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="stars" style="text-align: center;">
+  <div class="twinkling">
+    <!-- <div class="clouds"> -->
+    <router-outlet></router-outlet>
+    <!-- </div> -->
+  </div>
+</div>

@@ -1,0 +1,31 @@
+::ng-deep .mat-form-field-underline {
+  background-color: white !important;
+}
+
+.mat-form-field-underline.mat-disabled {
+  background-color: red !important;
+}
+
+::ng-deep .mat-form-field-label {
+  /*change color of label*/
+  color: white !important;
+}
+
+:host /deep/ .mat-select-value-text {
+  color: white !important;
+}
+
+/* .btn {
+  padding: 14px 24px;
+  border: 0 none;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+} */
+
+.btn.btn-custom:hover,
+.btn.btn-custom:focus {
+  color: red !important;
+  background-color: #181818;
+  outline-color: red !important;
+}

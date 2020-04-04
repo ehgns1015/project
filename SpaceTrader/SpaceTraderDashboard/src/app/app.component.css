@@ -1,0 +1,30 @@
+.navbar-custom {
+  background-color: #000000;
+  background-image: none;
+  background-repeat: no-repeat;
+}
+
+.h1 {
+  color: #ffffff;
+  font: Calibri;
+}
+
+a#fade {
+  border-bottom: 1px solid rgba(192, 192, 192, 0);
+  color: white;
+  /* ^- the important bit. RGB 192,192,192 is the same as #C0C0C0*/
+
+  -webkit-transition: border 500ms ease;
+  -moz-transition: border 500ms ease;
+  -ms-transition: border 500ms ease;
+  -o-transition: border 500ms ease;
+  transition: border 500ms ease;
+}
+a#fade:hover {
+  border-bottom: 1px solid #ff4136; /* used to be rgba(192, 192, 192, 1); */
+}
+
+.navbar-brand {
+  color: #ffffff;
+  font: Calibri;
+}

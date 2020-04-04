@@ -1,0 +1,46 @@
+<div class="stars" style="text-align: center; z-index:-50;">
+  <div class="twinkling">
+    <!-- <div class="clouds"> -->
+    <mat-form-field color="warn" style="margin-top: 25vh">
+      <mat-label style="color: white">Hero Name:</mat-label>
+      <input style="color: white" matInput [(ngModel)]="name" />
+    </mat-form-field>
+    <br />
+    <mat-form-field color="warn">
+      <mat-label style="color: white">Difficulty:</mat-label>
+      <mat-select style="color: white" [(value)]="difficulty">
+        <mat-option value="Easy">Easy - 16 pts</mat-option>
+        <mat-option value="Medium">Medium - 12 pts</mat-option>
+        <mat-option value="Hard">Hard - 8 pts</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br />
+    <br />
+    <mat-form-field color="warn" style="margin-right:15px">
+      <mat-label style="color: white">Pilot lvl:</mat-label>
+      <input style="color: white" matInput [(ngModel)]="pilot" />
+    </mat-form-field>
+    <mat-form-field color="warn">
+      <mat-label style="color: white">Fighter lvl:</mat-label>
+      <input style="color: white" matInput [(ngModel)]="fighter" />
+    </mat-form-field>
+    <br />
+    <mat-form-field color="warn" style="margin-right:15px">
+      <mat-label style="color: white">Merchant lvl:</mat-label>
+      <input style="color: white" matInput [(ngModel)]="merchant" />
+    </mat-form-field>
+    <mat-form-field color="warn">
+      <mat-label style="color: white">Engineer lvl:</mat-label>
+      <input style="color: white" matInput [(ngModel)]="engineer" />
+    </mat-form-field>
+    <br />
+    <button
+      style="margin-top: 25px;"
+      class="btn btn-outline-light btn-custom"
+      (click)="initiate()"
+    >
+      It's Go Time Baby
+    </button>
+  </div>
+  <!-- </div> -->
+</div>

@@ -1,0 +1,92 @@
+<div class="stars" style="text-align: center; z-index:-50;">
+  <div class="twinkling">
+    <!-- <div class="clouds"> -->
+    <div style="text-align: center; margin-top: 80px">
+      <p>
+        Player: {{ globals.player.name }} Credits:
+        {{ globals.player.credits }} Difficulty:
+        {{ globals.player.difficulty }}
+      </p>
+      <p>
+        Pilot Level: {{ globals.player.pilot }} Fighter Level:
+        {{ globals.player.fighter }} Merchant Level:
+        {{ globals.player.merchant }} Engineer Level:
+        {{ globals.player.engineer }}
+      </p>
+      <p>Current Location: {{ globals.player.location }}</p>
+    </div>
+    <div style="text-align: center">
+      <mat-form-field color="warn">
+        <mat-label style="color: white">Travel Destination:</mat-label>
+        <mat-select
+          style="color: white"
+          [(value)]="destination"
+          (selectionChange)="selected()"
+        >
+          <mat-option *ngFor="let region of universe" [value]="region.name">
+            {{ region.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button
+        style="margin-left: 15px"
+        class="btn btn-outline-light btn-custom"
+        (click)="confirmTravel()"
+      >
+        Travel !
+      </button>
+    </div>
+    <!-- <ul>
+  <li *ngFor="let region of universe" style="color: white">
+    <span style="color: white"
+      >{{ region.name }}, {{ region.tech_level }}, {{ region.xcoord }},
+      {{ region.ycoord }}
+    </span>
+  </li>
+</ul> -->
+    <div style="margin-left: auto; margin-right: auto; text-align: center">
+      <div
+        class="wrapper"
+        style="margin: 0 auto; width: 90vw; position: relative;"
+      >
+        <canvas
+          #canvas
+          width="500"
+          height="500"
+          style="border: 1px solid white;"
+        >
+        </canvas>
+        <div style="position:absolute; top: 0; left: 5vw;">
+          <span *ngIf="destinationArrived == true">
+            <p><u>Current Location:</u></p>
+            <p>Region: {{ destinationObject.name }}</p>
+            <p>Tech Level: {{ destinationObject.tech_level }}</p>
+            <p>
+              x: {{ destinationObject.xcoord }} , y:
+              {{ destinationObject.ycoord }}
+            </p>
+            <button
+              class="btn btn-outline-light btn-custom"
+              (click)="viewMarket()"
+            >
+              Go To Market
+            </button>
+          </span>
+          <p style="margin-top: 100px;"><u>Ship Info</u></p>
+          <p>Name: {{ globals.ship.name }}</p>
+          <p>Fuel: {{ globals.ship.fuel }}/{{ globals.ship.fuel_capacity }}</p>
+        </div>
+        <div style="position:absolute; top: 0; left: 70vw;">
+          <span *ngIf="destinationSelected == true">
+            <p><u>Destination Info:</u></p>
+            <p>Region: {{ destination }}</p>
+            <p>Technology: {{ destinationTech }}</p>
+            <p>Fuel Cost: {{ fuel_cost }}</p>
+            <p>Able To Travel: {{ can_travel }}</p>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- </div> -->
+</div>
