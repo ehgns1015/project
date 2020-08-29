@@ -1,0 +1,976 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>[Codelab] 쇼핑몰 리엑트 붙이기 - 03</title>
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/railscasts.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', (event) => {
+			document.querySelectorAll('pre code').forEach((block) => {
+				hljs.highlightBlock(block);
+			});
+		});</script>
+  <style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="d51b99a4-efa5-480a-98f3-2e74f21aafc6" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🕎</span></div><h1 class="page-title">[Codelab] 쇼핑몰 리엑트 붙이기 - 03</h1></header><div class="page-body"><nav id="dd172cc8-34e1-4558-9fa8-d2c61646355b" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d3bba687-1ec5-4627-ae72-974e83a39a32">라우팅 붙이기</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#956d99ab-9899-4a2b-9964-870b8e770a5f">상품 목록페이지 라우트 추가하기</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d8b03650-d6a8-427a-955e-182f991c21d4">레이아웃 컴포넌트 만들기</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#3e153672-4ed8-455f-8ff4-8601a17764eb"><strong>[Q-1]</strong> 이제 Home 페이지 컴포넌트에 레이아웃이 적용되게 해보세요.</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#16bcf69e-b9fd-48fc-80dc-b2ef66bbe8bf"><strong>[Q-2]</strong> 이제 상품 목록 페이지를 완성해주세요. (ProductList/index.js)</a></div></nav><h1 id="d3bba687-1ec5-4627-ae72-974e83a39a32" class="">라우팅 붙이기</h1><p id="915d9d6b-bb5c-4b88-93dd-428b5c1c1a25" class=""><code>react-router-dom</code> 을 설치합니다.</p><pre id="f9fdc73c-0480-42a3-b6dc-46e0ca0ce711" class="code"><code>yarn add react-router-dom</code></pre><p id="df9603d1-dd86-4f19-84ac-6d65068be78d" class="">이제 App.js를 다음과 같이 수정합니다.</p><pre id="fc432855-08ef-492c-8683-98242c86a071" class="code"><code>import React, { Component } from &#x27;react&#x27;;
+import &#x27;bootstrap/dist/css/bootstrap.css&#x27;;
+import &#x27;@fortawesome/fontawesome-free/css/all.css&#x27;;
+import { BrowserRouter, Switch, Route, Redirect } from &#x27;react-router-dom&#x27;;
+import Home from &#x27;./pages/Home&#x27;;
+
+export default class App extends Component {
+  render() {
+    return (
+      &lt;React.Fragment&gt;
+        &lt;BrowserRouter&gt;
+          &lt;Switch&gt;
+            &lt;Route path=&quot;/home&quot; exact&gt;
+              &lt;Home /&gt;
+            &lt;/Route&gt;
+            &lt;Redirect from=&quot;/&quot; to=&quot;/home&quot; /&gt;
+          &lt;/Switch&gt;
+        &lt;/BrowserRouter&gt;
+        &lt;style jsx global&gt;{`
+	          // 생략
+        `}&lt;/style&gt;
+      &lt;/React.Fragment&gt;
+    );
+  }
+}</code></pre><h2 id="956d99ab-9899-4a2b-9964-870b8e770a5f" class="">상품 목록페이지 라우트 추가하기</h2><p id="e468d5e4-6eb3-43ed-b856-790a1b9b195b" class="">상품 목록페이지 라우트를 추가하기 전에 먼저 네비게인션에 라우트를 변경할 수 있게 처리하겠습니다.</p><p id="5cd4e85f-3c58-4380-944d-9a6e67e0f1ee" class="">리엑트 라우터에서 <code>Link</code> 를 이용하면 브라우저 히스토리를 변경하는 링크를 만들 수 있습니다. 라우팅을 시킬 수 있는거죠. 그리고 url과 비교해서 해당 브라우저의 URL이 to와 매칭이되면 특정 CSS 클래스를 추가할수 있는 NavLink 도 있습니다. </p><p id="6b3522cd-6960-421d-b4a9-d37b3508a6fd" class="">저희는 <code>NavLink</code>를 써서 URL이 해당 링크와 매칭이 되면 active 클래스를 추가하면됩니다. 하지만 a 태그가 아닌 li 태그에 즉 부모 태그에 클래스가 변경되야하기 때문에 NavLink에 그려질 컴포넌트를 직접 전달해야합니다. (참고 <a href="https://reactrouter.com/web/api/Link/innerref-function">https://reactrouter.com/web/api/Link/innerref-function</a>)</p><p id="03082527-66c6-4a79-a7dd-b175f125ca03" class="">이제 NavItem을 다음과 같이 변경하겠습니다.</p><pre id="0388dc15-0b26-4eb2-b8e5-b0d9aac7a152" class="code"><code>import React from &#x27;react&#x27;;
+import PropTypes from &#x27;prop-types&#x27;;
+import classNames from &#x27;classnames&#x27;;
+import { NavLink } from &#x27;react-router-dom&#x27;;
+
+const LinkItem = React.forwardRef((props, ref) =&gt; {
+  const handleClick = (e) =&gt; {
+    e.preventDefault();
+    e.stopPropagation();
+    props.navigate();
+  };
+  return (
+    &lt;li className={classNames(&#x27;nav-item&#x27;, props.className)}&gt;
+      &lt;a ref={ref} href=&quot;&quot; className=&quot;nav-link&quot; onClick={handleClick}&gt;
+        {props.text}
+      &lt;/a&gt;
+    &lt;/li&gt;
+  );
+});
+
+const NaviItem = ({ to, text }) =&gt; {
+  return (
+    &lt;React.Fragment&gt;
+      &lt;NavLink to={to} activeClassName=&quot;active&quot; text={text} exact component={LinkItem}&gt;&lt;/NavLink&gt;
+      &lt;style jsx&gt;
+        {`
+          :global(.nav-item &gt; .nav-link) {
+            color: #fff;
+            font-family: &#x27;Open Sans&#x27;, helvetica, arial, sans-serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+          }
+          :global(.nav-link) {
+            padding-top: 25px;
+            border-top: 6px solid transparent;
+          }
+          :global(.nav-item.active &gt; .nav-link, .nav-item.active &gt; .nav-link:hover) {
+            background: transparent;
+            color: #fff;
+            border-top: 6px solid #1ab394;
+          }
+          :global(.nav-item &gt; .nav-link:hover) {
+            color: #1ab394;
+          }
+          :global(.active &gt; a:focus) {
+            background: transparent;
+            color: #fff;
+          }
+        `}
+      &lt;/style&gt;
+    &lt;/React.Fragment&gt;
+  );
+};
+NaviItem.propTypes = {
+  to: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  active: PropTypes.bool,
+  action: PropTypes.func,
+  show: PropTypes.bool,
+};
+export default NaviItem;</code></pre><p id="55e8e6e4-d4e5-415c-be96-c1425c8efb69" class="">다음으로 <code>Navigation/index.js</code>에 NavItem을 다음과 같이 변경해 줍니다.</p><pre id="56fa14ca-7826-4183-abe3-8fbef981932f" class="code"><code>&lt;ul className=&quot;navbar-nav&quot;&gt;
+  &lt;NaviItem to=&quot;/home&quot; text=&quot;Home&quot; /&gt;
+  &lt;NaviItem to=&quot;/products&quot; text=&quot;Products&quot; /&gt;
+&lt;/ul&gt;</code></pre><p id="c85c2fb7-e756-4ad9-8fc8-946c847a7355" class="">이제 다시 App.js로 가서 <code>/proudcts</code> 에 연결하는 라우트를 추가해 줍니다.</p><pre id="8805508b-7f0c-4f31-a27b-22ff0e62ac73" class="code"><code>&lt;React.Fragment&gt;
+  &lt;BrowserRouter&gt;
+  &lt;Switch&gt;
+    &lt;Route path=&quot;/home&quot; exact&gt;
+      &lt;Home /&gt;
+    &lt;/Route&gt;
+    &lt;Route path=&quot;/products&quot; exact&gt;
+      &lt;Home /&gt;
+    &lt;/Route&gt;
+    &lt;Redirect from=&quot;/&quot; to=&quot;/home&quot; /&gt;
+  &lt;/Switch&gt;
+&lt;/BrowserRouter&gt;</code></pre><p id="921f93f2-8e45-4b6b-bfb6-e0a4b5714cb4" class="">그리고 pages/아래에 ProductList 폴더를 만들고 그 안에 <code>index.js</code>를 생성하겠습니다.</p><h2 id="d8b03650-d6a8-427a-955e-182f991c21d4" class="">레이아웃 컴포넌트 만들기</h2><p id="896e6c2c-12a7-4423-89d9-bda7ed38946e" class=""><code>ProductList/index.js</code> 만들어서 하다보면 큰 어려움에 부딪히게 됩니다. 바로 카트에 대한 상태정보를 어떻게 사용하는건가 입니다. Home 페이지 컴포넌트처럼 모든 내용을 복사하고 별도의 상태를 가져가면 문제가 카트 상태정보가 공유가 안됩니다. 그러면 카트 정보를 App.js로 올리는걸 생각해볼 수 있습니다. (리덕스가 정말 팔요하죠!)</p><p id="c5580328-3d24-484e-b093-21777078c48f" class="">하지만 이걸 해결하기도하고 네비게이션과 카트등은 각 페이지마다 모두 공통으로 보여지는 영역입니다. 단지 <code>&lt;main&gt;</code> 안에 특정 부분이 변경되기 때문에 어떻게보면 같은 레이아웃을 공유하고 그 레이아웃에서 특정 부분만 바뀌는걸 고려할 수 있습니다.</p><figure class="block-color-pink_background callout" style="white-space:pre-wrap;display:flex" id="67f52f90-f3bf-4b19-83b9-9bd37d4f859d"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><a href="https://simonsmith.io/reusing-layouts-in-react-router-4">https://simonsmith.io/reusing-layouts-in-react-router-4</a> 읽어보세요!</div></figure><p id="d78851a0-b4de-4346-827d-b6f5d46275f9" class="">그러면 이제 Layout 컴포넌트를 만들어봅시다! 다음과 같이 lyaouts 폴더를 만들고 PublicLayout이라고 폴더를 만들고 그안에 index.js를 아래와 같이 만들어 보겠습니다.</p><pre id="3f495d2d-546a-4098-aef4-def4b2ba440d" class="code"><code>/* eslint-disable react/prop-types */
+import React from &#x27;react&#x27;;
+import { Route } from &#x27;react-router-dom&#x27;;
+import Drawer from &#x27;@/components/Drawer&#x27;;
+import Cart from &#x27;@/pages/Home/Cart&#x27;;
+import Footer from &#x27;@/pages/Home/Footer&#x27;;
+import Navitation from &#x27;@/components/Navigation&#x27;;
+
+export default class PublicLayout extends React.Component {
+  state = {
+    isShopingCartOpen: false,
+    cartItems: [],
+  };
+  handleCartClicked = () =&gt;
+    this.setState({
+      isShopingCartOpen: !this.state.isShopingCartOpen,
+    });
+
+  handleCheckout = ({ items, total }) =&gt; {
+    console.log(`Checkout ${JSON.stringify(items)} total: ${total}`);
+  };
+
+  handleCartClosed = () =&gt; {
+    this.setState({ isShopingCartOpen: false });
+  };
+
+	handleCartItemRemoved = ({ id }) =&gt; {
+    const foudnItem = this.state.cartItems.find((v) =&gt; v.product.id === id);
+    if (foudnItem == null) {
+      throw new Error(`Can not find the item (${id})`);
+    }
+    if (foudnItem &amp;&amp; foudnItem.counts &gt; 1) {
+      foudnItem.counts -= 1;
+    } else {
+      const index = this.state.cartItems.indexOf(foudnItem);
+      this.state.cartItems.splice(index, 1);
+    }
+    this.setState({
+      cartItems: [...this.state.cartItems],
+    });
+  };
+
+  render() {
+    const { component: Component, ...rest } = this.props;
+
+    return (
+      &lt;Route
+        {...rest}
+        render={(matchProps) =&gt; (
+          &lt;React.Fragment&gt;
+            &lt;Drawer
+              isOpen={this.state.isShopingCartOpen}
+              component={Cart}
+              items={this.state.cartItems}
+              onItemRemove={this.handleCartItemRemoved}
+              onCheckout={this.handleCheckout}
+              onClose={this.handleCartClosed}
+            /&gt;
+            &lt;Navitation onCartClick={this.handleCartClicked} cartItemCounts={this.state.cartItems.length} /&gt;
+            &lt;Component {...matchProps} /&gt;
+            &lt;Footer /&gt;
+          &lt;/React.Fragment&gt;
+        )}&gt;&lt;/Route&gt;
+    );
+  }
+}</code></pre><h2 id="3e153672-4ed8-455f-8ff4-8601a17764eb" class="block-color-red"><strong>[Q-1]</strong> 이제 Home 페이지 컴포넌트에 레이아웃이 적용되게 해보세요.</h2><p id="45a2ef1a-6f7c-472b-ba0b-b7d1a069a965" class="">PublicLayout 컴포넌트에서 카트에 관련된 부분과 네비게이션이 부분이 들어가 있습니다. Home에 이 내용들을 모두 삭제해야겠죠? 코드가 중복되자나요~</p><ul id="f74acacb-d4b5-4847-9a3d-a336685c6772" class="block-color-purple_background toggle"><li><details open=""><summary><strong>[Solution] 스스로 해보고 검증용으로 보세요! </strong></summary><p id="c043370d-348c-4ab0-a02f-47a92178755e" class="">우선 App.js에서 라우트 설정을 다음과 같이 수정합니다.</p><pre id="20eb10d3-c55a-4424-8b93-72e620bc2cee" class="code"><code>&lt;BrowserRouter&gt;
+  &lt;Switch&gt;
+    &lt;PublicLayout path=&quot;/home&quot; component={Home} /&gt;
+    &lt;PublicLayout path=&quot;/products&quot; component={ProductList} /&gt;
+    &lt;Redirect from=&quot;/&quot; to=&quot;/home&quot; /&gt;
+  &lt;/Switch&gt;
+&lt;/BrowserRouter&gt;</code></pre><p id="19e980c0-0286-4101-9989-52fafe06fc0e" class="">이제 PublicLayout 컴포넌트에서 component props로 전달받는 컴포넌트로에게 카트에 아이템을 추가할 수 있도록 해줍니다.</p><pre id="58b0159f-ca66-4c24-b15c-25a270f0cc20" class="code"><code>export default class PublicLayout extends React.Component {
+  state = {
+    isShopingCartOpen: false,
+    cartItems: [],
+  };
+
+  // 생략
+
+  addCartItem = (product) =&gt; {
+    const found = this.state.cartItems.find((v) =&gt; v.product.id === product.id);
+    if (found) {
+      found.count += 1;
+      this.setState({
+        cartItems: [...this.state.cartItems],
+      });
+    } else {
+      this.setState({
+        cartItems: [...this.state.cartItems, { product, count: 1 }],
+      });
+    }
+  };
+
+  render() {
+    const { component: Component, ...rest } = this.props;
+
+    return (
+      &lt;Route
+        {...rest}
+        render={(matchProps) =&gt; (
+          &lt;React.Fragment&gt;
+            &lt;Drawer
+              isOpen={this.state.isShopingCartOpen}
+              component={Cart}
+              items={this.state.cartItems}
+              onItemRemove={this.handleCartItemRemoved}
+              onCheckout={this.handleCheckout}
+              onClose={this.handleCartClosed}
+            /&gt;
+            &lt;Navitation onCartClick={this.handleCartClicked} cartItemCounts={this.state.cartItems.length} /&gt;
+            &lt;Component {...matchProps} onAddCartItem={this.addCartItem} /&gt;
+            &lt;Footer /&gt;
+          &lt;/React.Fragment&gt;
+        )}&gt;&lt;/Route&gt;
+    );
+  }
+}</code></pre><p id="98a76132-977a-48e4-9467-b495a920422a" class="">마지막으로 Home 페이지 컴포넌트를 아래와 같이 수정해보세요.</p><pre id="0108e969-d1f9-42a8-ac4b-1529ce8a0089" class="code"><code>import React, { Component } from &#x27;react&#x27;;
+import Product from &#x27;../../components/Product&#x27;;
+import Banner from &#x27;./Banner&#x27;;
+import Collection from &#x27;./Category&#x27;;
+import WatchImg from &#x27;../../assets/images/products/item5.jpeg&#x27;;
+import ClothesImg from &#x27;../../assets/images/products/item6.jpeg&#x27;;
+import ShoesImg from &#x27;../../assets/images/products/item7.jpeg&#x27;;
+import GlovesImg from &#x27;../../assets/images/products/item10.jpeg&#x27;;
+import Gaurantees from &#x27;./Gaurantees&#x27;;
+
+export default class Home extends Component {
+  state = {
+    newArrivals: [
+     // 생략
+    ],
+    categories: [
+     // 생략
+    ],
+  };
+
+  handleProductCartClicked = (product) =&gt; {
+    const found = this.state.cartItems.find((v) =&gt; v.product.id === product.id);
+    if (found) {
+      found.count += 1;
+      this.setState({
+        cartItems: [...this.state.cartItems],
+      });
+    } else {
+      this.setState({
+        cartItems: [...this.state.cartItems, { product, count: 1 }],
+      });
+    }
+  };
+
+  render() {
+    const { categories, newArrivals } = this.state;
+
+    return (
+      &lt;main&gt;
+        &lt;Banner /&gt;
+        &lt;section className=&quot;new-arrivals container&quot;&gt;
+          &lt;div className=&quot;row copy&quot;&gt;
+            &lt;div className=&quot;col-12 text-center mt-5&quot;&gt;
+              &lt;div className=&quot;navy-line&quot;&gt;&lt;/div&gt;
+              &lt;h1&gt;NEW ARRIVALS&lt;/h1&gt;
+              &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit.&lt;/p&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div className=&quot;row items&quot;&gt;
+            {newArrivals.map((product) =&gt; (
+              &lt;div key={product.id} className=&quot;col-xs-12 col-sm-6 col-md-3 col-lg-3&quot;&gt;
+                &lt;Product {...product} onCartBtnClick={this.handleProductCartClicked} /&gt;
+              &lt;/div&gt;
+            ))}
+          &lt;/div&gt;
+        &lt;/section&gt;
+        &lt;section className=&quot;featured-collection container my-5&quot;&gt;
+          &lt;div className=&quot;row copy&quot;&gt;
+            &lt;div className=&quot;col-12 text-center&quot;&gt;
+              &lt;div className=&quot;navy-line&quot;&gt;&lt;/div&gt;
+              &lt;h1&gt;FEATURED COLLECTION&lt;/h1&gt;
+              &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit.&lt;/p&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div className=&quot;row&quot;&gt;
+            {categories.map((c) =&gt; (
+              &lt;div key={c.id} className=&quot;col-xs-12 col-sm-6 col-md-3 col-lg-3&quot;&gt;
+                &lt;Collection name={c.name} to={c.to} alt={c.name} img={c.img} /&gt;
+              &lt;/div&gt;
+            ))}
+          &lt;/div&gt;
+        &lt;/section&gt;
+
+        &lt;section className=&quot;explore flex-fill bg-light my-5 py-4 text-center&quot;&gt;
+          &lt;h3 className=&quot;mb-3&quot;&gt;
+            Over &lt;strong&gt;50.000&lt;/strong&gt; digital products!
+          &lt;/h3&gt;
+          &lt;a className=&quot;btn btn-rounded btn-noborder btn-lg btn-primary&quot; href=&quot;#products&quot;&gt;
+            Explore Store &lt;i className=&quot;fas fa-arrow-right&quot;&gt;&lt;/i&gt;
+          &lt;/a&gt;
+        &lt;/section&gt;
+
+        &lt;Gaurantees /&gt;
+      &lt;/main&gt;
+    );
+  }
+}</code></pre><p id="6ba7caa5-07bd-48cd-8e7b-3a15ec8fbd65" class="">위에서 코드를 보시면 중복된 부분들을 제거했습니다. 그런데 이제 브라우저에서 테스트를 해보면 장바구니 담기가 안됩니다. 왜냐면 장바구니에 담을려면 <code>cartItems</code>에 접근을 해야되기 떄문이죠. </p><p id="f8086479-ba01-4317-80af-654292e48a05" class="">이제 PublicLayout 컴포넌트에서 카트에 아이템을 set할 수 있게 다음과 같이 수정합니다. component props로 전달받는 컴포넌트로에게 카트에 아이템을 추가할 수 있도록 해줍니다.</p><pre id="4ece192c-031d-4585-8425-86e1e072ff3e" class="code"><code>export default class PublicLayout extends React.Component {
+  state = {
+    isShopingCartOpen: false,
+    cartItems: [],
+  };
+
+  // 생략
+
+  addCartItem = (product) =&gt; {
+    const found = this.state.cartItems.find((v) =&gt; v.product.id === product.id);
+    if (found) {
+      found.count += 1;
+      this.setState({
+        cartItems: [...this.state.cartItems],
+      });
+    } else {
+      this.setState({
+        cartItems: [...this.state.cartItems, { product, count: 1 }],
+      });
+    }
+  };
+
+  render() {
+    const { component: Component, ...rest } = this.props;
+
+    return (
+      &lt;Route
+        {...rest}
+        render={(matchProps) =&gt; (
+          &lt;React.Fragment&gt;
+            &lt;Drawer
+              isOpen={this.state.isShopingCartOpen}
+              component={Cart}
+              items={this.state.cartItems}
+              onItemRemove={this.handleCartItemRemoved}
+              onCheckout={this.handleCheckout}
+              onClose={this.handleCartClosed}
+            /&gt;
+            &lt;Navitation onCartClick={this.handleCartClicked} cartItemCounts={this.state.cartItems.length} /&gt;
+            &lt;Component {...matchProps} onAddCartItem={this.addCartItem} /&gt;
+            &lt;Footer /&gt;
+          &lt;/React.Fragment&gt;
+        )}&gt;&lt;/Route&gt;
+    );
+  }
+}</code></pre><p id="07e52f8a-ddc9-4b74-be46-c1e1487790d7" class="">그러면 이제 Home 페이지 컴포넌트에서 <code>onAddCartItem</code>를 props로 접근하여 사용이 가능합니다.</p><pre id="4a8d2da8-8c2b-4397-93c7-41e446bb3584" class="code"><code>export default class Home extends Component {
+  state = {
+    newArrivals: [
+      // 생략
+    ],
+    categories: [
+      // 생략
+    ],
+  };
+
+  handleProductCartClicked = (product) =&gt; {
+    this.props.onAddCartItem(product);
+  };
+
+  render() {
+    const { categories, newArrivals } = this.state;
+
+    // 생략
+  }
+}</code></pre><p id="1e6548af-aa26-46b8-8f7d-a92ced3e0035" class="">
+</p></details></li></ul><h2 id="16bcf69e-b9fd-48fc-80dc-b2ef66bbe8bf" class="block-color-red"><strong>[Q-2]</strong> 이제 상품 목록 페이지를 완성해주세요. (ProductList/index.js)</h2><p id="5c5d7bb0-6255-4a5c-9113-7b1a9707152b" class="block-color-purple_background">→ 미션으로 이어서 진행해보세요! 3주차에 정답을 알려드리겠습니다!</p><p id="aedddb06-bd03-46f1-9cf2-3948c574b148" class="">
+</p></div></article></body></html>

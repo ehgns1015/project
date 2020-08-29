@@ -41,7 +41,7 @@ a:hover {
 }
 
 hr {
-    border: dotted #EAF6F6 6px;
+    border: dotted rgb(18, 218, 101) 6px;
     border-bottom: none;
     width: 4%;
     margin: 100px auto;
@@ -140,7 +140,6 @@ hr {
 }
     
 .btn:hover {
-    border: solid #337FED 1px;
     background: #30E3CB;
     background-image: -webkit-linear-gradient(top, #30E3CB, #2BC4AD);
     background-image: -moz-linear-gradient(top, #30E3CB, #2BC4AD);
@@ -149,6 +148,6 @@ hr {
     background-image: linear-gradient(to bottom, #30E3CB, #2BC4AD);
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
-    border-radius: 20px;
+    border-radius: 100px;
     text-decoration: none;
 }

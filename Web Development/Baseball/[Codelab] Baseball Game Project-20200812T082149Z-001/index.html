@@ -1,0 +1,1504 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>[Codelab] 베이스볼게임 프로젝트</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/railscasts.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", (event) => {
+        document.querySelectorAll("pre code").forEach((block) => {
+          hljs.highlightBlock(block);
+        });
+      });
+    </script>
+    <style>
+      /* webkit printing magic: print all background colors */
+      html {
+        -webkit-print-color-adjust: exact;
+      }
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      @media only screen {
+        body {
+          margin: 2em auto;
+          max-width: 900px;
+          color: rgb(55, 53, 47);
+        }
+      }
+
+      body {
+        line-height: 1.5;
+        white-space: pre-wrap;
+      }
+
+      a,
+      a.visited {
+        color: inherit;
+        text-decoration: underline;
+      }
+
+      .pdf-relative-link-path {
+        font-size: 80%;
+        color: #444;
+      }
+
+      h1,
+      h2,
+      h3 {
+        letter-spacing: -0.01em;
+        line-height: 1.2;
+        font-weight: 600;
+        margin-bottom: 0;
+      }
+
+      .page-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-top: 0;
+        margin-bottom: 0.75em;
+      }
+
+      h1 {
+        font-size: 1.875rem;
+        margin-top: 1.875rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        margin-top: 1.5rem;
+      }
+
+      h3 {
+        font-size: 1.25rem;
+        margin-top: 1.25rem;
+      }
+
+      .source {
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        padding: 1.5em;
+        word-break: break-all;
+      }
+
+      .callout {
+        border-radius: 3px;
+        padding: 1rem;
+      }
+
+      figure {
+        margin: 1.25em 0;
+        page-break-inside: avoid;
+      }
+
+      figcaption {
+        opacity: 0.5;
+        font-size: 85%;
+        margin-top: 0.5em;
+      }
+
+      mark {
+        background-color: transparent;
+      }
+
+      .indented {
+        padding-left: 1.5em;
+      }
+
+      hr {
+        background: transparent;
+        display: block;
+        width: 100%;
+        height: 1px;
+        visibility: visible;
+        border: none;
+        border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      @media only print {
+        img {
+          max-height: 100vh;
+          object-fit: contain;
+        }
+      }
+
+      @page {
+        margin: 1in;
+      }
+
+      .collection-content {
+        font-size: 0.875rem;
+      }
+
+      .column-list {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .column {
+        padding: 0 1em;
+      }
+
+      .column:first-child {
+        padding-left: 0;
+      }
+
+      .column:last-child {
+        padding-right: 0;
+      }
+
+      .table_of_contents-item {
+        display: block;
+        font-size: 0.875rem;
+        line-height: 1.3;
+        padding: 0.125rem;
+      }
+
+      .table_of_contents-indent-1 {
+        margin-left: 1.5rem;
+      }
+
+      .table_of_contents-indent-2 {
+        margin-left: 3rem;
+      }
+
+      .table_of_contents-indent-3 {
+        margin-left: 4.5rem;
+      }
+
+      .table_of_contents-link {
+        text-decoration: none;
+        opacity: 0.7;
+        border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid rgba(55, 53, 47, 0.09);
+        border-collapse: collapse;
+      }
+
+      table {
+        border-left: none;
+        border-right: none;
+      }
+
+      th,
+      td {
+        font-weight: normal;
+        padding: 0.25em 0.5em;
+        line-height: 1.5;
+        min-height: 1.5em;
+        text-align: left;
+      }
+
+      th {
+        color: rgba(55, 53, 47, 0.6);
+      }
+
+      ol,
+      ul {
+        margin: 0;
+        margin-block-start: 0.6em;
+        margin-block-end: 0.6em;
+      }
+
+      li > ol:first-child,
+      li > ul:first-child {
+        margin-block-start: 0.6em;
+      }
+
+      ul > li {
+        list-style: disc;
+      }
+
+      ul.to-do-list {
+        text-indent: -1.7em;
+      }
+
+      ul.to-do-list > li {
+        list-style: none;
+      }
+
+      .to-do-children-checked {
+        text-decoration: line-through;
+        opacity: 0.375;
+      }
+
+      ul.toggle > li {
+        list-style: none;
+      }
+
+      ul {
+        padding-inline-start: 1.7em;
+      }
+
+      ul > li {
+        padding-left: 0.1em;
+      }
+
+      ol {
+        padding-inline-start: 1.6em;
+      }
+
+      ol > li {
+        padding-left: 0.2em;
+      }
+
+      .mono ol {
+        padding-inline-start: 2em;
+      }
+
+      .mono ol > li {
+        text-indent: -0.4em;
+      }
+
+      .toggle {
+        padding-inline-start: 0em;
+        list-style-type: none;
+      }
+
+      /* Indent toggle children */
+      .toggle > li > details {
+        padding-left: 1.7em;
+      }
+
+      .toggle > li > details > summary {
+        margin-left: -1.1em;
+      }
+
+      .selected-value {
+        display: inline-block;
+        padding: 0 0.5em;
+        background: rgba(206, 205, 202, 0.5);
+        border-radius: 3px;
+        margin-right: 0.5em;
+        margin-top: 0.3em;
+        margin-bottom: 0.3em;
+        white-space: nowrap;
+      }
+
+      .collection-title {
+        display: inline-block;
+        margin-right: 1em;
+      }
+
+      time {
+        opacity: 0.5;
+      }
+
+      .icon {
+        display: inline-block;
+        max-width: 1.2em;
+        max-height: 1.2em;
+        text-decoration: none;
+        vertical-align: text-bottom;
+        margin-right: 0.5em;
+      }
+
+      img.icon {
+        border-radius: 3px;
+      }
+
+      .user-icon {
+        width: 1.5em;
+        height: 1.5em;
+        border-radius: 100%;
+        margin-right: 0.5rem;
+      }
+
+      .user-icon-inner {
+        font-size: 0.8em;
+      }
+
+      .text-icon {
+        border: 1px solid #000;
+        text-align: center;
+      }
+
+      .page-cover-image {
+        display: block;
+        object-fit: cover;
+        width: 100%;
+        height: 30vh;
+      }
+
+      .page-header-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+
+      .page-header-icon-with-cover {
+        margin-top: -0.72em;
+        margin-left: 0.07em;
+      }
+
+      .page-header-icon img {
+        border-radius: 3px;
+      }
+
+      .link-to-page {
+        margin: 1em 0;
+        padding: 0;
+        border: none;
+        font-weight: 500;
+      }
+
+      p > .user {
+        opacity: 0.5;
+      }
+
+      td > .user,
+      td > time {
+        white-space: nowrap;
+      }
+
+      input[type="checkbox"] {
+        transform: scale(1.5);
+        margin-right: 0.6em;
+        vertical-align: middle;
+      }
+
+      p {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+      }
+
+      .image {
+        border: none;
+        margin: 1.5em 0;
+        padding: 0;
+        border-radius: 0;
+        text-align: center;
+      }
+
+      /* .code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		} */
+
+      /* .code > code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		} */
+
+      blockquote {
+        font-size: 1.25em;
+        margin: 1em 0;
+        padding-left: 1em;
+        border-left: 3px solid rgb(55, 53, 47);
+      }
+
+      .bookmark {
+        text-decoration: none;
+        max-height: 8em;
+        padding: 0;
+        display: flex;
+        width: 100%;
+        align-items: stretch;
+      }
+
+      .bookmark-title {
+        font-size: 0.85em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 1.75em;
+        white-space: nowrap;
+      }
+
+      .bookmark-text {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .bookmark-info {
+        flex: 4 1 180px;
+        padding: 12px 14px 14px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .bookmark-image {
+        width: 33%;
+        flex: 1 1 180px;
+        display: block;
+        position: relative;
+        object-fit: cover;
+        border-radius: 1px;
+      }
+
+      .bookmark-description {
+        color: rgba(55, 53, 47, 0.6);
+        font-size: 0.75em;
+        overflow: hidden;
+        max-height: 4.5em;
+        word-break: break-word;
+      }
+
+      .bookmark-href {
+        font-size: 0.75em;
+        margin-top: 0.25em;
+      }
+
+      .sans {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+          "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+          "Segoe UI Symbol";
+      }
+      .code {
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo,
+          Courier, monospace;
+      }
+      .serif {
+        font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho",
+          "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC",
+          "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif;
+      }
+      .mono {
+        font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+      }
+      .pdf .sans {
+        font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+          "Segoe UI Symbol", "Twemoji", "Noto Color Emoji", "Noto Sans CJK SC",
+          "Noto Sans CJK KR";
+      }
+
+      .pdf .code {
+        font-family: Source Code Pro, "SFMono-Regular", Consolas,
+          "Liberation Mono", Menlo, Courier, monospace, "Twemoji",
+          "Noto Color Emoji", "Noto Sans Mono CJK SC", "Noto Sans Mono CJK KR";
+      }
+
+      .pdf .serif {
+        font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho",
+          "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC",
+          "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif,
+          "Twemoji", "Noto Color Emoji", "Noto Sans CJK SC", "Noto Sans CJK KR";
+      }
+
+      .pdf .mono {
+        font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace,
+          "Twemoji", "Noto Color Emoji", "Noto Sans Mono CJK SC",
+          "Noto Sans Mono CJK KR";
+      }
+
+      .highlight-default {
+      }
+      .highlight-gray {
+        color: rgb(155, 154, 151);
+      }
+      .highlight-brown {
+        color: rgb(100, 71, 58);
+      }
+      .highlight-orange {
+        color: rgb(217, 115, 13);
+      }
+      .highlight-yellow {
+        color: rgb(223, 171, 1);
+      }
+      .highlight-teal {
+        color: rgb(15, 123, 108);
+      }
+      .highlight-blue {
+        color: rgb(11, 110, 153);
+      }
+      .highlight-purple {
+        color: rgb(105, 64, 165);
+      }
+      .highlight-pink {
+        color: rgb(173, 26, 114);
+      }
+      .highlight-red {
+        color: rgb(224, 62, 62);
+      }
+      .highlight-gray_background {
+        background: rgb(235, 236, 237);
+      }
+      .highlight-brown_background {
+        background: rgb(233, 229, 227);
+      }
+      .highlight-orange_background {
+        background: rgb(250, 235, 221);
+      }
+      .highlight-yellow_background {
+        background: rgb(251, 243, 219);
+      }
+      .highlight-teal_background {
+        background: rgb(221, 237, 234);
+      }
+      .highlight-blue_background {
+        background: rgb(221, 235, 241);
+      }
+      .highlight-purple_background {
+        background: rgb(234, 228, 242);
+      }
+      .highlight-pink_background {
+        background: rgb(244, 223, 235);
+      }
+      .highlight-red_background {
+        background: rgb(251, 228, 228);
+      }
+      .block-color-default {
+        color: inherit;
+        fill: inherit;
+      }
+      .block-color-gray {
+        color: rgba(55, 53, 47, 0.6);
+        fill: rgba(55, 53, 47, 0.6);
+      }
+      .block-color-brown {
+        color: rgb(100, 71, 58);
+        fill: rgb(100, 71, 58);
+      }
+      .block-color-orange {
+        color: rgb(217, 115, 13);
+        fill: rgb(217, 115, 13);
+      }
+      .block-color-yellow {
+        color: rgb(223, 171, 1);
+        fill: rgb(223, 171, 1);
+      }
+      .block-color-teal {
+        color: rgb(15, 123, 108);
+        fill: rgb(15, 123, 108);
+      }
+      .block-color-blue {
+        color: rgb(11, 110, 153);
+        fill: rgb(11, 110, 153);
+      }
+      .block-color-purple {
+        color: rgb(105, 64, 165);
+        fill: rgb(105, 64, 165);
+      }
+      .block-color-pink {
+        color: rgb(173, 26, 114);
+        fill: rgb(173, 26, 114);
+      }
+      .block-color-red {
+        color: rgb(224, 62, 62);
+        fill: rgb(224, 62, 62);
+      }
+      .block-color-gray_background {
+        background: rgb(235, 236, 237);
+      }
+      .block-color-brown_background {
+        background: rgb(233, 229, 227);
+      }
+      .block-color-orange_background {
+        background: rgb(250, 235, 221);
+      }
+      .block-color-yellow_background {
+        background: rgb(251, 243, 219);
+      }
+      .block-color-teal_background {
+        background: rgb(221, 237, 234);
+      }
+      .block-color-blue_background {
+        background: rgb(221, 235, 241);
+      }
+      .block-color-purple_background {
+        background: rgb(234, 228, 242);
+      }
+      .block-color-pink_background {
+        background: rgb(244, 223, 235);
+      }
+      .block-color-red_background {
+        background: rgb(251, 228, 228);
+      }
+      .select-value-color-default {
+        background-color: rgba(206, 205, 202, 0.5);
+      }
+      .select-value-color-gray {
+        background-color: rgba(155, 154, 151, 0.4);
+      }
+      .select-value-color-brown {
+        background-color: rgba(140, 46, 0, 0.2);
+      }
+      .select-value-color-orange {
+        background-color: rgba(245, 93, 0, 0.2);
+      }
+      .select-value-color-yellow {
+        background-color: rgba(233, 168, 0, 0.2);
+      }
+      .select-value-color-green {
+        background-color: rgba(0, 135, 107, 0.2);
+      }
+      .select-value-color-blue {
+        background-color: rgba(0, 120, 223, 0.2);
+      }
+      .select-value-color-purple {
+        background-color: rgba(103, 36, 222, 0.2);
+      }
+      .select-value-color-pink {
+        background-color: rgba(221, 0, 129, 0.2);
+      }
+      .select-value-color-red {
+        background-color: rgba(255, 0, 26, 0.2);
+      }
+
+      .checkbox {
+        display: inline-flex;
+        vertical-align: text-bottom;
+        width: 16;
+        height: 16;
+        background-size: 16px;
+        margin-left: 2px;
+        margin-right: 5px;
+      }
+
+      .checkbox-on {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+      }
+
+      .checkbox-off {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+      }
+    </style>
+  </head>
+  <body>
+    <article id="3df365a5-5de7-44c1-8cba-d48ce21e102d" class="page sans">
+      <header>
+        <div class="page-header-icon undefined">
+          <span class="icon">🕎</span>
+        </div>
+        <h1 class="page-title">[Codelab] 베이스볼게임 프로젝트</h1>
+      </header>
+      <div class="page-body">
+        <nav
+          id="98de08a1-8797-40dd-895b-723f32d662d7"
+          class="block-color-gray table_of_contents"
+        >
+          <div class="table_of_contents-item table_of_contents-indent-0">
+            <a
+              class="table_of_contents-link"
+              href="#a1442750-d34e-4cb3-9328-d8d9da88cde2"
+              >01. 프로젝트 구성하기</a
+            >
+          </div>
+          <div class="table_of_contents-item table_of_contents-indent-1">
+            <a
+              class="table_of_contents-link"
+              href="#390a5097-ae55-4976-868c-e603547732c6"
+              ><strong>[Q-1]</strong> &quot;Parcel로 프로젝트 구성하기&quot;
+              페이지를 참고해서 프로젝트를 셋업해주세요!</a
+            >
+          </div>
+          <div class="table_of_contents-item table_of_contents-indent-0">
+            <a
+              class="table_of_contents-link"
+              href="#4884006b-1b7c-4150-95f3-d01835ee10a3"
+              >02. 카운터 만들기 (private 필드를 만들어보기)</a
+            >
+          </div>
+          <div class="table_of_contents-item table_of_contents-indent-1">
+            <a
+              class="table_of_contents-link"
+              href="#59019cfb-d47a-464e-93da-f4eca04b1a9e"
+              ><strong>[Q-2]</strong> 이제 해당 카운터를 생성하고 플러스 /
+              마이너스 버튼과 이어주세요. 그리고 시작하기 번튼 클릭하면 현재
+              카운터의 값을 URL 쿼리스트링으로 다음과 같이 전달하여 페이지가
+              전환되게 해주세요. → <code>game.html?digit=카운트값</code></a
+            >
+          </div>
+          <div class="table_of_contents-item table_of_contents-indent-0">
+            <a
+              class="table_of_contents-link"
+              href="#195ad845-a6a7-452f-96d1-b69c78fa5106"
+              >03. 정답 입력 컨트롤</a
+            >
+          </div>
+          <div class="table_of_contents-item table_of_contents-indent-1">
+            <a
+              class="table_of_contents-link"
+              href="#578af41b-6db1-4381-abe2-4497c8f041b0"
+              ><strong>[Q-3]</strong> 이제
+              <code>GuessInputControl</code> 컨트롤을 사용하는
+              <code>App 클래스</code>를 만들어보세요. App 클래스에서 어떻게하면
+              URL의 파라미터값을 가지고 올 수 있을가요? digit파라미터를 이용해서
+              자리수에 값이 들어가게 해보세요.</a
+            >
+          </div>
+          <div class="table_of_contents-item table_of_contents-indent-1">
+            <a
+              class="table_of_contents-link"
+              href="#c9569855-dcce-4658-847c-3299d906cd31"
+              ><strong>[Q-4]</strong> 사용자가 엔터키를 입력했을
+              <code>GuessInputControl</code> 에 전달한 콜백함수가 사용자간
+              입력한 값과 에러가 인자로 전달받아 실행되게 해보세요. 즉 App에서
+              콜백함수를 <code>GuessInputControl</code> 에 전달하고 콘솔로그로
+              사용자가 입력한 값이 찍히게 해보세요. 콜백함수를 App 클래스의
+              <code>handleGuess</code>로 정의하고 이 함수의 레퍼런스를
+              넘겨주세요.</a
+            >
+          </div>
+          <div class="table_of_contents-item table_of_contents-indent-0">
+            <a
+              class="table_of_contents-link"
+              href="#3ecd6909-9d22-4a81-b535-5fd4c5ee53c6"
+              >04. 베이스볼 게임 로직 만들기</a
+            >
+          </div>
+          <div class="table_of_contents-item table_of_contents-indent-1">
+            <a
+              class="table_of_contents-link"
+              href="#6e1d6677-9cb0-4b33-ae0c-1d78417d5966"
+              ><strong>[Q-5]</strong> 게임문제를 만드는 makeProblem() 메소드를
+              완성해보세요.</a
+            >
+          </div>
+          <div class="table_of_contents-item table_of_contents-indent-1">
+            <a
+              class="table_of_contents-link"
+              href="#86da2bd8-c282-4c01-a96a-536c517eff04"
+              ><strong>[Q-6]</strong> GameResult를 반환하는 getResult를
+              완성해보세요.</a
+            >
+          </div>
+          <div class="table_of_contents-item table_of_contents-indent-1">
+            <a
+              class="table_of_contents-link"
+              href="#8f854cfb-8c0b-41c6-9050-21196eb39705"
+              ><strong>[Q-7]</strong> 마지막으로
+              <code>GuessInputControl</code>에 disable 메소드를 만들어주세요. 더
+              이상 사용자가 입력할 수 없고 placeholder에 전달된 값을
+              할당합니다.</a
+            >
+          </div>
+          <div class="table_of_contents-item table_of_contents-indent-0">
+            <a
+              class="table_of_contents-link"
+              href="#546cbaac-0b95-423a-b77c-dd5c515e12ca"
+              >05. 파일 분활하기</a
+            >
+          </div>
+          <div class="table_of_contents-item table_of_contents-indent-1">
+            <a
+              class="table_of_contents-link"
+              href="#9917fcc6-6e5c-4fc2-ad21-af11ce9a8bda"
+              ><strong>[Q-8]</strong> 각 클래스명이 하나의 파일이 되게해서
+              파일들을 분리해보세요. (getRandomInt는 utils.js에 넣어주세요)</a
+            >
+          </div>
+        </nav>
+        <h2 id="a1442750-d34e-4cb3-9328-d8d9da88cde2" class="">
+          01. 프로젝트 구성하기
+        </h2>
+        <blockquote id="5979e97d-55a1-4d35-872c-b334256db1ab" class="">
+          Baseball Game 퍼블리쉬 파일:
+          <a href="https://bit.ly/fs-online-baseball"
+            >https://bit.ly/fs-online-baseball</a
+          >
+        </blockquote>
+        <p id="fe87da25-364b-49fa-972f-13840c609f1f" class="">
+          ⬆️ 위 파일을 다운받아서 압축을 풀어주세요.
+        </p>
+        <p id="70e1c0ad-98cd-4849-9a96-9b4581446b86" class="">
+          그리고 다음과 같이 Visual Studio Code에서 해당 폴더를 열어주세요.
+        </p>
+        <figure id="4bafda23-e3f0-46b0-b015-a99def1f6468" class="image">
+          <a href="resources/Untitled.png"
+            ><img style="width: 602px;" src="resources/Untitled.png"
+          /></a>
+        </figure>
+        <h3 id="390a5097-ae55-4976-868c-e603547732c6" class="block-color-red">
+          <strong>[Q-1]</strong> &quot;Parcel로 프로젝트 구성하기&quot; 페이지를
+          참고해서 프로젝트를 셋업해주세요!
+        </h3>
+        <ul
+          id="69b33a67-e9d0-4334-88c3-c3c60e3592f2"
+          class="block-color-purple_background toggle"
+        >
+          <li>
+            <details
+              ><summary
+                ><strong
+                  >[Solution] 스스로 해보고 검증용으로 보세요!
+                </strong></summary
+              >
+              <p id="779bd888-1a0a-426d-beaa-6b293809cca1" class="">
+                프리티어를 설치한다.
+              </p>
+              <pre
+                id="207ca1b0-6371-4f38-9833-3f401faa986b"
+                class="code"
+              ><code>yarn add prettier -D</code></pre>
+              <p id="fc39d75c-13bd-4e68-b3b4-3e5ad3fb1134" class="">
+                <code>package.json</code> 에 format을 추가한다.
+              </p>
+              <pre
+                id="3b37d2a2-023b-47ca-adc3-25d3a59c2642"
+                class="code"
+              ><code>&quot;scripts&quot;: {
+  &quot;format&quot;: &quot;prettier --write \&quot;./**/*.{js,html,css}\&quot;&quot;
+},</code></pre>
+              <p id="dd5ceab2-3661-4983-a4f8-bbfb9eaf8e20" class="">
+                <code>.prettierrc</code> 파일을 생성하고 다음과 같이 추가한다.
+              </p>
+              <pre
+                id="4286e6dd-3f29-4dd6-97ed-3740a045c8f0"
+                class="code"
+              ><code>{
+  &quot;printWidth&quot;: 120,
+  &quot;tabWidth&quot;: 2,
+  &quot;trailingComma&quot;: &quot;es5&quot;,
+  &quot;singleQuote&quot;: true,
+  &quot;jsxBracketSameLine&quot;: true,
+  &quot;arrowParens&quot;: &quot;always&quot;
+}</code></pre>
+              <p id="3d0da7d5-46e4-4c5d-9404-3b20af0739cf" class="">
+                eslint와 설치 한다.
+              </p>
+              <pre
+                id="a2a6e5f5-8061-49e7-ae31-311dac41de3a"
+                class="code"
+              ><code>yarn add -D eslint eslint-config-prettier</code></pre>
+              <p id="4319cf23-9fed-494d-9ea2-13cb8a77701b" class="">
+                .eslintrc.json 생성한다.
+              </p>
+              <p id="278696a9-fc97-4113-be4c-3a47386e3707" class="">
+                <code>node_modules/.bin/eslint --init</code> 커맨드로 자동 생성
+                후 &quot;prettier&quot; extends에 추가
+              </p>
+              <pre
+                id="6df1ba21-b256-47ef-8a93-43c2c714d833"
+                class="code"
+              ><code>{
+  &quot;env&quot;: {
+    &quot;browser&quot;: true,
+    &quot;es2020&quot;: true
+  },
+  &quot;extends&quot;: [&quot;eslint:recommended&quot;, &quot;prettier&quot;],
+  &quot;parserOptions&quot;: {
+    &quot;ecmaVersion&quot;: 11,
+    &quot;sourceType&quot;: &quot;module&quot;
+  },
+  &quot;rules&quot;: {
+     &quot;no-console&quot;: &quot;warn&quot;
+  }
+}</code></pre>
+              <p id="4e47826b-3feb-485e-9db8-9e5e678d9157" class="">
+                Parcel 번들러 추가한다.
+              </p>
+              <pre
+                id="da83ca16-b909-4c82-a739-60bcbc4b0d77"
+                class="code"
+              ><code>yarn add -D parcel-bundler</code></pre>
+              <p id="f80fa050-159a-40ae-83b6-b0deac7563fc" class="">
+                <code>package.json</code>에 다음 스크립트를 추가한다.
+              </p>
+              <pre
+                id="e595680c-930b-422d-a6c5-996612f7796f"
+                class="code"
+              ><code>&quot;scripts&quot;: {
+  &quot;format&quot;: &quot;prettier --write \&quot;./**/*.{js,html,css}\&quot;&quot;,
+  &quot;dev&quot;: &quot;parcel index.html game.html game-list.html new-game.html&quot;
+},</code></pre>
+              <p id="4da4c0b5-85c6-41fd-a83e-ad19266bff04" class="">
+                → 멀티 엔트리를 위와같이 제공한다. 각 페이지마다 사용하는
+                자바스크립트가 다르기 때문에 각각 별도의 엔트리로 제공해준다.
+              </p>
+              <p id="d8d11c67-98fa-481e-92fe-1717e313036b" class="">
+                src 폴더를 만들고 자바스크립트 파일을 생성한다.
+              </p>
+              <ul
+                id="7ce777fe-6354-44f6-80eb-0c439230a46f"
+                class="bulleted-list"
+              >
+                <li>Counter.js</li>
+              </ul>
+              <ul
+                id="04c3b50c-95a4-48fe-a3f6-ce3d8d956282"
+                class="bulleted-list"
+              >
+                <li>App.js</li>
+              </ul>
+              <p id="47eaa205-9cfe-4123-821b-db49ecd8455e" class=""></p
+            ></details>
+          </li>
+        </ul>
+        <h2 id="4884006b-1b7c-4150-95f3-d01835ee10a3" class="">
+          02. 카운터 만들기 (private 필드를 만들어보기)
+        </h2>
+        <p id="9c51a044-4044-48a4-8efb-dac99544050e" class="">
+          우선 베이스볼 게임의 자리수를 선택하기위한 카운터를 구현해 보도록
+          하겠습니다.
+        </p>
+        <p id="55bc9b27-2d36-4df4-bc42-e0d812b3a494" class="">
+          <code>new-game.html</code>에서 자리수를 선택하게됩니다.
+        </p>
+        <figure id="9b528d63-5452-4990-858a-43ba13f93813" class="image">
+          <a href="resources/Untitled%201.png"
+            ><img style="width: 611px;" src="resources/Untitled%201.png"
+          /></a>
+        </figure>
+        <p id="f7eab402-a685-420b-b4c7-848682c21b5e" class="">
+          <code>Counter.js</code> 파일을 만들고 다음과 같이 작성합니다.
+        </p>
+        <p id="04bd8424-9284-4d27-ad16-bc0bda0ee1a4" class="">
+          Counter 클래스를 즉각호출 패턴을 통하여 다음과 같은 형태로 만들어
+          줍니다.
+        </p>
+        <pre
+          id="ecb2c50a-08c2-42df-8744-139c78fd2a06"
+          class="code"
+        ><code>const Counter = (() =&gt; {
+  const VALUE = Symbol();
+  return class {};
+})();</code></pre>
+        <p id="e832ab22-96ee-406b-ae37-12bda18e2663" class="">
+          그리고 내부 생성자에서 해당 심볼을 키로하는 값을 가지도록 합니다.
+        </p>
+        <pre
+          id="1faba099-0c9c-479f-94f7-bd07a430204c"
+          class="code"
+        ><code class="javascript">const Counter = (() =&gt; {
+  const VALUE = Symbol();
+  return class {
+    constructor(id) {
+      this[VALUE] = 1;
+      this.container = document.getElementById(id);
+      if (this.container == null) throw Error(id + &quot; 찾을 수 없습니다.&quot;);
+      this.container.innerHTML = this[VALUE];
+    }
+  };
+})();</code></pre>
+        <p id="0f506f83-85c6-42d5-bb7d-afe71874305e" class="">
+          이제 다른 메소드들을 아래와 같이 추가합니다.
+        </p>
+        <pre
+          id="ba51dfe0-ed3d-48a0-8e33-4bb32e509239"
+          class="code"
+        ><code class="javascript">const Counter = (() =&gt; {
+  const VALUE = Symbol();
+  return class {
+    constructor(id) {
+      this[VALUE] = 1;
+      this.container = document.getElementById(id);
+      if (this.container == null) throw Error(id + &#x27; 찾을 수 없습니다.&#x27;);
+      this.container.innerHTML = this[VALUE];
+    }
+    increase() {
+      if (this[VALUE] &gt; 8) return this[VALUE];
+      this[VALUE] += 1;
+      this.container.innerHTML = this[VALUE];
+      return this[VALUE];
+    }
+    decrease() {
+      if (this[VALUE] &lt; 2) return this[VALUE];
+      this[VALUE] -= 1;
+      this.container.innerHTML = this[VALUE];
+      return this[VALUE];
+    }
+    get value() {
+      return this[VALUE];
+    }
+  };
+})();</code></pre>
+        <h3 id="59019cfb-d47a-464e-93da-f4eca04b1a9e" class="block-color-red">
+          <strong>[Q-2]</strong> 이제 해당 카운터를 생성하고 플러스 / 마이너스
+          버튼과 이어주세요. 그리고 시작하기 번튼 클릭하면 현재 카운터의 값을
+          URL 쿼리스트링으로 다음과 같이 전달하여 페이지가 전환되게 해주세요. →
+          <code>game.html?digit=카운트값</code>
+        </h3>
+        <ul
+          id="ca361d4b-d346-476d-9c0a-13bebb0bbc37"
+          class="block-color-pink_background toggle"
+        >
+          <li>
+            <details
+              ><summary
+                ><strong
+                  >[Solution] 스스로 해보고 검증용으로 보세요!
+                </strong></summary
+              >
+              <pre
+                id="575e0700-157b-4e00-a01b-a1fc8808cc46"
+                class="code"
+              ><code>// Counter 코드들 생략
+
+const counter = new Counter(&#x27;digit-number&#x27;);
+document.getElementById(&#x27;minus-btn&#x27;).addEventListener(&#x27;click&#x27;, (e) =&gt; counter.decrease());
+document.getElementById(&#x27;plus-btn&#x27;).addEventListener(&#x27;click&#x27;, (e) =&gt; counter.increase());
+document.getElementById(&#x27;start-btn&#x27;).addEventListener(&#x27;click&#x27;, (e) =&gt; {
+  e.preventDefault();
+  e.stopPropagation();
+  location.assign(`game.html?digit=${counter.value}`);
+});</code></pre>
+              <p id="cd956c88-fc6b-4ed7-a312-5d556191439f" class="">
+                자리수를 선택하고 게임 시작하기를 누르면<code>game.html</code>
+                로 이동하게 됩니다. 이때 쿼리스트링으로 자리수를 전달해서
+                game.html에서는 쿼리스트링을 통해 현재 게임의 자리수를 확인할 수
+                있습니다.
+              </p></details
+            >
+          </li>
+        </ul>
+        <h2 id="195ad845-a6a7-452f-96d1-b69c78fa5106" class="">
+          03. 정답 입력 컨트롤
+        </h2>
+        <p id="9cc1b641-f4ae-4406-bc8b-a5552125bfe3" class="">
+          우선 게임에 추측되는 정답을 입력받는 컨트롤 클래스를
+          <code>App.js</code>에 작성하도록 합니다.
+        </p>
+        <pre
+          id="ff49ae69-8368-4e9d-911a-9f57ccecdc48"
+          class="code"
+        ><code>class GuessInputControl {
+
+  constructor(
+    containerSelector, 
+    digitNumber = 3
+  ) {
+    this.inputEl = document.querySelector(containerSelector);
+
+    if (this.inputEl == null) {
+      throw Error(&#x27;컨테이너 아이디를 찾을 수 없습니다.&#x27;);
+    }
+
+    this.inputEl.addEventListener(&#x27;keydown&#x27;, e =&gt; {
+      if (e.keyCode === 13) {
+        const values = Array.from(e.target.value).map(v =&gt; Number(v));
+        if (values.length != digitNumber) {
+          throw new Error(&#x27;자릿수가 맞지 않습니다!&#x27;);
+        }
+				console.log(values);
+        this.clear();        
+        return;
+      }
+    });
+  }
+
+  clear() {
+    this.inputEl.value = &#x27;&#x27;;
+  }
+
+}</code></pre>
+        <h3 id="578af41b-6db1-4381-abe2-4497c8f041b0" class="block-color-red">
+          <strong>[Q-3]</strong> 이제 <code>GuessInputControl</code> 컨트롤을
+          사용하는 <code>App 클래스</code>를 만들어보세요. App 클래스에서
+          어떻게하면 URL의 파라미터값을 가지고 올 수 있을가요? digit파라미터를
+          이용해서 자리수에 값이 들어가게 해보세요.
+        </h3>
+        <ul
+          id="36aee370-5edf-4033-b577-0c5114b64977"
+          class="block-color-pink_background toggle"
+        >
+          <li>
+            <details
+              ><summary
+                ><strong
+                  >[Solution] 스스로 해보고 검증용으로 보세요!
+                </strong></summary
+              >
+              <pre
+                id="90ea0a3a-7722-484c-85f6-e9d80a6d1459"
+                class="code"
+              ><code>class App {
+  constructor() {
+    const queryParam = new URLSearchParams(location.search);
+    this.digit = queryParam.get(&#x27;digit&#x27;);
+    this.inputControl = new GuessInputControl(&#x27;#guess&#x27;, this.digit);
+  }
+}
+
+new App();</code></pre>
+              <p id="87ae99c0-042c-41ce-acce-00218c963951" class="">
+                자리수를 선택하고 게임 시작하기를 누르면<code>game.html</code>
+                로 이동하게 됩니다. 이때 쿼리스트링으로 자리수를 전달해서
+                game.html에서는 쿼리스트링을 통해 현재 게임의 자리수를 확인할 수
+                있습니다.
+              </p></details
+            >
+          </li>
+        </ul>
+        <p id="2f4558ea-53c2-4a8b-a0f8-641e87311688" class="">
+          정답 입력 컨트롤인 <code>GuessInputControl</code>은 자리수에 맞춰서
+          값을 재대로 입력했는지에 대한 validation 처리를 하고 있을 뿐더러
+          엔터키를 눌렀을 때 입력한 값이 숫자의 배열로 만들어지는 로직도 가지고
+          있습니다.
+        </p>
+        <p id="3bccc568-541c-4776-990e-70190037afbc" class="">
+          여기서 유저가 숫자를 입력하고나서 엔터키를 누르면 작성한 숫자들을
+          가지고 이제 베이스볼 게임이 진행되야 합니다. 만약 우리가 여기서
+          베이스볼 게임을 컨트롤 한다면 GuessInputControl과 베이스볼 게임간의
+          불필요한 의존관계가 만들어지고 이 입력 컨트롤은 재사용성이 떨어질
+          것입니다. 그래서 그러한 로직을 바깥에서 사용할 수 있도록 콜백 패턴을
+          이용하도록 수정하겠습니다.
+        </p>
+        <h3 id="c9569855-dcce-4658-847c-3299d906cd31" class="block-color-red">
+          <strong>[Q-4]</strong> 사용자가 엔터키를 입력했을
+          <code>GuessInputControl</code> 에 전달한 콜백함수가 사용자간 입력한
+          값과 에러가 인자로 전달받아 실행되게 해보세요. 즉 App에서 콜백함수를
+          <code>GuessInputControl</code> 에 전달하고 콘솔로그로 사용자가 입력한
+          값이 찍히게 해보세요. 콜백함수를 App 클래스의
+          <code>handleGuess</code>로 정의하고 이 함수의 레퍼런스를 넘겨주세요.
+        </h3>
+        <ul
+          id="6820b832-3959-4b7f-bf6d-aab59ef66e72"
+          class="block-color-pink_background toggle"
+        >
+          <li>
+            <details
+              ><summary
+                ><strong
+                  >[Solution] 스스로 해보고 검증용으로 보세요!
+                </strong></summary
+              >
+              <pre
+                id="91ff8eca-8ad2-4dc8-8ecc-f3818e21e69a"
+                class="code"
+              ><code>class GuessInputControl {
+  constructor(containerSelector, { callback = function () {}, digitNumber = 3 } = {}) {
+    // 생략
+    this.inputEl.addEventListener(&#x27;keydown&#x27;, (e) =&gt; {
+      if (e.keyCode === 13) {
+        const values = Array.from(e.target.value).map((v) =&gt; Number(v));
+        if (values.length != digitNumber) {
+          callback.call(null, [], new Error(&#x27;자릿수가 맞지 않습니다!&#x27;));
+          return;
+        }
+        this.clear();
+        callback.call(null, values);
+        return;
+      }
+    });
+  }
+
+  clear() {
+    this.inputEl.value = &#x27;&#x27;;
+  }
+}
+
+class App {
+  constructor() {
+    const queryParam = new URLSearchParams(location.search);
+    this.digit = queryParam.get(&#x27;digit&#x27;);
+    this.inputControl = new GuessInputControl(&#x27;#guess&#x27;, {
+      callback: this.handleGuess.bind(this),
+      digitNumber: this.digit
+    })
+  }
+
+  handleGuess(values, error) {
+    if (error) {
+      alert(error.message);
+      return;
+    }
+    console.log(values);
+  }
+}
+
+new App();</code></pre>
+              <p id="a52ad8e0-0c5d-4430-8648-214b02d8dda6" class=""></p
+            ></details>
+          </li>
+        </ul>
+        <p id="5e8b8bd3-7710-4d28-87b7-55344e60c442" class="">
+          이제 startGame 에서 실제 게임이 시작하게 합니다.
+        </p>
+        <h2 id="3ecd6909-9d22-4a81-b535-5fd4c5ee53c6" class="">
+          04. 베이스볼 게임 로직 만들기
+        </h2>
+        <p id="ceefbb60-02aa-4eeb-8adc-29ee3056ecfd" class="">
+          이제 실제 문제를 생성하고 해당 문제에 대한 답을 받아 (위의
+          <code>GuessInputControl</code>로 입력 받은) 결과를 알려주도록
+          하겠습니다.
+        </p>
+        <p id="cf66ce42-3a62-46a7-acf0-aa11cefe7b17" class="">
+          우선 렌덤함수를 다음과 같이 만듭니다.
+        </p>
+        <pre
+          id="470f8f31-151b-43b5-af2e-e03edfd67b56"
+          class="code"
+        ><code>function getRandomInt (min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}</code></pre>
+        <p id="76adedc7-b033-463e-bb9c-486917ab114c" class="">
+          그리고 이런 렌덤 함수를 이용하여 실제 게임의 문제를 만들고 정답을
+          체크하는 Baseball 클래스를 생성합니다.
+        </p>
+        <pre
+          id="515d68ab-c7eb-4509-904e-18c6b58cd388"
+          class="code"
+        ><code>class Baseball {
+  constructor(digit = 3) {
+    this.digit = digit;
+    this.problem = this.makeProblem(digit);
+  }
+
+  makeProblem() {
+    // <strong>[Q-5]</strong> 이부분을 작성해 보세요!
+  }
+
+  getResult(guess) {
+    // <strong>[Q-6]</strong> 이부분을 작성해 보세요! GameResult를 반환해야 합니다.
+  }
+}
+
+class GameResult {
+  constructor(digit, strike, ball) {
+    this.digit = digit;
+    this.strike = strike;
+    this.ball = ball;
+  }
+
+  isDone() {
+    return this.ball == 0 &amp;&amp; this.strike == this.digit;
+  }
+
+  toString() {
+    let resultString = `${this.strike}S${this.ball}B`;
+    if (this.strike === 0 &amp;&amp; this.ball === 0) {
+      resultString = &#x27;OUT&#x27;;
+    }
+    return resultString;
+  }
+}</code></pre>
+        <h3 id="6e1d6677-9cb0-4b33-ae0c-1d78417d5966" class="block-color-red">
+          <strong>[Q-5]</strong> 게임문제를 만드는 makeProblem() 메소드를
+          완성해보세요.
+        </h3>
+        <p
+          id="d01bb577-30e2-423f-9ca5-20f6fcbaecc4"
+          class="block-color-purple_background"
+        >
+          → 미션으로 이어서 진행해보세요! 2주차에 정답을 알려드리겠습니다!
+        </p>
+        <h3 id="86da2bd8-c282-4c01-a96a-536c517eff04" class="block-color-red">
+          <strong>[Q-6]</strong> GameResult를 반환하는 getResult를 완성해보세요.
+        </h3>
+        <ul
+          id="81c0db56-9765-453b-aef1-3c1fe1f53969"
+          class="block-color-pink_background toggle"
+        >
+          <li>
+            <details
+              ><summary
+                ><strong
+                  >[Solution] 스스로 해보고 검증용으로 보세요!
+                </strong></summary
+              >
+              <pre
+                id="6621c2b8-a3ed-42cf-b800-994dc33002dc"
+                class="code"
+              ><code>getResult(guess) {
+  let strike = 0,
+    ball = 0;
+
+  this.problem.forEach((v, i) =&gt; {
+    if (guess[i] === v) {
+      strike++;
+    } else if (this.problem.indexOf(guess[i]) &gt; -1) {
+      ball++;
+    }
+  });
+
+  return new GameResult(this.digit, strike, ball);
+}</code></pre>
+              <p id="1c219893-c3a2-49d6-9a5c-9e9b65ee66bd" class=""></p
+            ></details>
+          </li>
+        </ul>
+        <p id="e51a368b-7b8a-466d-94f8-c786fd540ff0" class="">
+          이제 엡이 생성될 때 베이스볼이 생성되도록 수정합니다. 그리고
+          handleGuess 메소드에서 베이스볼 게임에 정답을 확인하고 결과를 화면에
+          출력하도록 다음과 같이 수정합니다.
+        </p>
+        <pre
+          id="6cb9d47c-937c-432a-a12f-dce0fb19f974"
+          class="code"
+        ><code>class App {
+  constructor() {
+    const queryParam = new URLSearchParams(location.search);
+    this.digit = queryParam.get(&#x27;digit&#x27;);
+    this.inputControl = new GuessInputControl(&#x27;#guess&#x27;, {
+      callback: this.handleGuess.bind(this),
+      digitNumber: this.digit
+    });
+    this.baseball = new Baseball(this.digit);
+    console.log(this.baseball.problem);
+    this.resultsContainerEl = document.querySelector(&quot;.result-container&quot;);
+  }
+
+  handleGuess(values, error) {
+    if (error) {
+      alert(error.message);
+      return;
+    }
+    const result = this.baseball.getResult(values);
+    this.resultsContainerEl.insertAdjacentHTML(&#x27;beforeend&#x27;, this.createResultEl(values, result.toString()));
+    if (result.isDone()) {
+      alert(&#x27;정답을 맞추었습니다!&#x27;);
+      this.resetGame();
+    }
+  }
+
+  resetGame() {
+    this.inputControl.disable(&#x27;정답을 맞추었습니다!&#x27;);
+  };
+
+  createResultEl(guess, result) {
+    return `&lt;li class=&quot;list-group-item&quot;&gt;
+              &lt;span class=&quot;guess&quot;&gt;${guess}&lt;/span&gt;
+              &lt;span class=&quot;badge result&quot;&gt;${result}&lt;/span&gt;
+            &lt;/li&gt;`;
+  }
+
+}</code></pre>
+        <h3 id="8f854cfb-8c0b-41c6-9050-21196eb39705" class="block-color-red">
+          <strong>[Q-7]</strong> 마지막으로 <code>GuessInputControl</code>에
+          disable 메소드를 만들어주세요. 더 이상 사용자가 입력할 수 없고
+          placeholder에 전달된 값을 할당합니다.
+        </h3>
+        <ul
+          id="87f9bb0f-3ed7-42fc-b40e-7e2e639a36c6"
+          class="block-color-pink_background toggle"
+        >
+          <li>
+            <details
+              ><summary
+                ><strong
+                  >[Solution] 스스로 해보고 검증용으로 보세요!
+                </strong></summary
+              >
+              <pre
+                id="ebe010fa-7e8c-415f-afa0-61670703def5"
+                class="code"
+              ><code>disable(message) {
+  this.inputEl.disabled = true;
+  this.inputEl.placeholder = message;
+}</code></pre>
+              <p id="ce86b535-95c6-411c-9f18-916dfbaa2ce8" class=""></p
+            ></details>
+          </li>
+        </ul>
+        <p id="c65f7772-8e47-4159-b980-2c07366c5dcf" class="">
+          이제 브라우저에서 확인을 하면 다음 그림과 같이 게임을 진행할 수
+          있습니다.
+        </p>
+        <figure id="10ba0947-15ae-46c5-b4f3-eed6b382f733" class="image">
+          <a href="resources/Untitled%202.png"
+            ><img style="width: 512px;" src="resources/Untitled%202.png"
+          /></a>
+        </figure>
+        <h2 id="546cbaac-0b95-423a-b77c-dd5c515e12ca" class="">
+          05. 파일 분활하기
+        </h2>
+        <p id="04060574-3a26-4790-9aca-c351e451440d" class="">
+          이제 베이스볼게임은 여러 객체들의 관계에 의하여 표현을 되었습니다.
+          이제 하나의 생성자 함수가 하나의 파일에 위치하도록 변경하겠습니다.
+        </p>
+        <h3 id="9917fcc6-6e5c-4fc2-ad21-af11ce9a8bda" class="block-color-red">
+          <strong>[Q-8]</strong> 각 클래스명이 하나의 파일이 되게해서 파일들을
+          분리해보세요. (getRandomInt는 utils.js에 넣어주세요)
+        </h3>
+        <ul
+          id="f683d6c5-3d51-4eb4-aabf-4789028167f0"
+          class="block-color-pink_background toggle"
+        >
+          <li>
+            <details
+              ><summary
+                ><strong
+                  >[Solution] 스스로 해보고 검증용으로 보세요!
+                </strong></summary
+              >
+              <figure id="d67d8c70-68bc-409b-b008-1764c0ec1af8" class="image">
+                <a href="resources/Untitled%203.png"
+                  ><img style="width: 329px;" src="resources/Untitled%203.png"
+                /></a>
+              </figure>
+              <h3 id="33b3dbbc-ec2c-44a5-8177-61f8160a2fcb" class="">App.js</h3>
+              <pre
+                id="dd0b3bd9-00b5-4394-bdd3-94a31fe7d519"
+                class="code"
+              ><code>import Baseball from &#x27;./Baseball&#x27;;
+import GuessInputControl from &#x27;./GuessInputControl&#x27;;</code></pre>
+              <h3 id="efe58481-a0e0-4969-9f15-5ea61cc33bd6" class="">
+                Baseball.js
+              </h3>
+              <pre
+                id="69feb058-d157-4a3e-9ea1-88d5caf2d025"
+                class="code"
+              ><code>import { getRandomInt } from &#x27;./utils&#x27;;
+import GameResult from &#x27;./GameResult&#x27;;
+
+export default class Baseball {
+	// 생략...
+}</code></pre>
+              <h3 id="b88c9113-5c4e-45b8-85ce-058a371b9a99" class="">
+                Counter.js → 변동없음
+              </h3>
+              <h3 id="40092a64-a5d0-4ecc-8f70-7166d9870c32" class="">
+                GameResult.js
+              </h3>
+              <pre
+                id="43b416ae-97f0-4ea2-8442-1fe584648eee"
+                class="code"
+              ><code>export default class GameResult {
+	// 생략...
+}</code></pre>
+              <h3 id="2e2a6ffb-adfb-4086-ba3b-b8cb22684919" class="">
+                GuessInputControl.js
+              </h3>
+              <pre
+                id="76f44b8a-7280-49c6-851d-239e43ffd1a3"
+                class="code"
+              ><code>export default class GuessInputControl {
+	// 생략...
+}</code></pre>
+              <h3 id="e610aa10-4655-4916-ade6-2687f1e52eb3" class="">
+                utils.js
+              </h3>
+              <pre
+                id="6ddb19f2-b7af-459a-a31a-9128a1bda16d"
+                class="code"
+              ><code>export function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}</code></pre>
+              <p id="3da0f431-99e2-41ea-a280-72a4cc47bffe" class=""></p
+            ></details>
+          </li>
+        </ul>
+        <p id="a7a47ad6-4510-4555-a31d-f03f3aeb7f66" class=""></p>
+      </div>
+    </article>
+  </body>
+</html>

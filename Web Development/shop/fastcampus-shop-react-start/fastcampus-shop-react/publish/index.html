@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.css" />
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css" crossorigin="anonymous" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Fastcampus Shop</title>
+  </head>
+
+  <body class="offcanvas">
+    <div class="shopping-cart drawer">
+      <div class="cart-header text-center p-3">
+        <a href="#" class="drawer-close navy-link float-left">
+          <i class="fa fa-chevron-left fa-lg" aria-hidden="true"></i>
+        </a>
+        <span class="navy">SHOPPING CART</span>
+        <div class="navy-line"></div>
+      </div>
+      <div class="cart-content">
+        <ul class="list-unstyled">
+          <li class="cart-item">
+            <a href="#remove" class="navy-link remove-item">×</a>
+            <a href="./product-detail.html">
+              <img width="250" height="250" src="./assets/images/products/item3.jpeg" alt="Note 01" class="p-3" />Note
+              01
+            </a>
+            <span class="quantity"> 2 × <span class="price">2000 WON</span> </span>
+          </li>
+          <li class="cart-item">
+            <a href="#remove" class="navy-link remove-item">×</a>
+            <a href="./product-detail.html">
+              <img
+                width="250"
+                height="250"
+                src="./assets/images/products/item10.jpeg"
+                alt="Gloves 01"
+                class="p-3"
+              />Gloves 01
+            </a>
+            <span class="quantity"> 1 × <span class="price">1000 WON</span> </span>
+          </li>
+        </ul>
+        <div class="total-section px-3 py-4 gray-bg">
+          <span>TOTAL:</span>
+          <span class="float-right m-0 price">5000</span>
+        </div>
+      </div>
+      <div class="cart-footer p-3">
+        <a class="btn btn-lg btn-primary checkout-btn" href="./checkout.html" role="button">Checkout</a>
+      </div>
+    </div>
+
+    <nav class="navbar navbar-expand-md fixed-top navbar-dark p-0 flex-column align-items-stretch">
+      <div class="flex-fill top-bar bg-dark">
+        <div class="container">
+          <ul class="flex-fill nav justify-content-end">
+            <li class="nav-item account-login mr-3">
+              <span>
+                <a href="#" data-toggle="modal" data-target="#login-modal">Log in</a>
+                <small>or</small>
+                <a href="#" data-toggle="modal" data-target="#signup-modal">Sign Up</a>
+              </span>
+            </li>
+            <li class="nav-item cart">
+              <a href="#" class="shopping-cart-btn">
+                <i class="fas fa-shopping-cart"></i> Cart <span class="item-number">(2)</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="container align-items-start menu">
+        <a href="./index.html" class="navbar-brand" href="#">Fast Shop</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="./index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./products.html">Products</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <section class="well flex m-0">
+        <div class="container flex-fill">
+          <div class="caption">
+            <h1>Summer Offer</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+            <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+          </div>
+        </div>
+      </section>
+      <section class="new-arrivals container">
+        <div class="row copy">
+          <div class="col-12 text-center mt-5">
+            <div class="navy-line"></div>
+            <h1>NEW ARRIVALS</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+          </div>
+        </div>
+        <div class="row items">
+          <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+            <div class="product card">
+              <div class="img-container">
+                <img class="card-img-top" src="assets/images/products/item1.jpeg" alt="" />
+                <div class="img-options">
+                  <div class="img-options-content">
+                    <ul class="list-line mb-2 p-0" role="group">
+                      <li class="list-inline-item">
+                        <a href="" class="btn btn-light"><i class="fas fa-heart"></i></a>
+                      </li>
+                      <li class="list-inline-item">
+                        <a href="" class="btn btn-light"><i class="fas fa-shopping-cart"></i></a>
+                      </li>
+                      <li class="list-inline-item">
+                        <a href="./product-detail.html" class="btn btn-light"><i class="fas fa-eye"></i></a>
+                      </li>
+                    </ul>
+                    <div class="text-warning">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <span class="text-white">(480)</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <a href="" class="item-title" href="">Shirt 01</a>
+                  <h4 class="price pull-right">1000</h4>
+                </div>
+                <p class="card-text">Lorem ipsum dolor sit amet</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="featured-collection container my-5">
+        <div class="row copy">
+          <div class="col-12 text-center">
+            <div class="navy-line"></div>
+            <h1>FEATURED COLLECTION</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+            <div class="card product">
+              <img class="card-img-top" src="assets/images/products/item5.jpeg" alt="" />
+              <div class="card-body text-center p-2">
+                <a href="" class="item-title">Watches</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+            <div class="card product">
+              <img class="card-img-top" src="assets/images/products/item6.jpeg" alt="" />
+              <div class="card-body text-center p-2">
+                <a href="" class="item-title">Clothes</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+            <div class="card product">
+              <img class="card-img-top" src="assets/images/products/item7.jpeg" alt="" />
+              <div class="card-body text-center p-2">
+                <a href="" class="item-title">Shoes</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+            <div class="card product">
+              <img class="card-img-top" src="assets/images/products/item10.jpeg" alt="" />
+              <div class="card-body text-center p-2">
+                <a href="" class="item-title">Gloves</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="explore flex-fill bg-light my-5 py-4 text-center">
+        <h3 class="mb-3">Over <strong>50.000</strong> digital products!</h3>
+        <a class="btn btn-rounded btn-noborder btn-lg btn-primary" href="#products"
+          >Explore Store <i class="fas fa-arrow-right"></i
+        ></a>
+      </section>
+      <section class="container gaurantees mt-5">
+        <div class="row copy">
+          <div class="col-lg-12 text-center">
+            <div class="navy-line"></div>
+            <h1>GAURANTEES</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+          </div>
+        </div>
+        <div class="row guarantees">
+          <div class="col-sm-4 col-xs-12">
+            <div class="box text-center">
+              <i class="fa fa-truck" aria-hidden="true"></i>
+              <h4>Free Shipping</h4>
+              <span>Excepteur sint occaecat cupidatat.</span>
+            </div>
+          </div>
+          <div class="col-sm-4 col-xs-12">
+            <div class="box text-center">
+              <i class="fa fa-money-bill" aria-hidden="true"></i>
+              <h4>100% money back</h4>
+              <span>Excepteur sint occaecat cupidatat.</span>
+            </div>
+          </div>
+          <div class="col-sm-4 col-xs-12">
+            <div class="box text-center">
+              <i class="fa fa-headphones" aria-hidden="true"></i>
+              <h4>24/7 support</h4>
+              <span>Excepteur sint occaecat cupidatat.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="flex-fill bg-light contact p-4">
+      <div class="container">
+        <div class="row copy mb-4 mt-3">
+          <div class="col-12 text-center">
+            <div class="navy-line"></div>
+            <h1>Contact Us</h1>
+            <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod.</p>
+          </div>
+        </div>
+        <div class="row mb-m">
+          <div class="col-lg-3 col-lg-offset-3">
+            <address>
+              <strong><span class="navy">Fastcampus, Inc.</span></strong
+              ><br />
+              339, Teheran-ro, Gangnam-gu<br />
+              Seoul, Republic of Korea<br />
+              <abbr title="Phone">P:</abbr> (02) 111-1111
+            </address>
+          </div>
+          <div class="col-lg-4">
+            <p class="text-color">
+              Consectetur adipisicing elit. Aut eaque, totam corporis laboriosam veritatis quis ad perspiciatis, totam
+              corporis laboriosam veritatis, consectetur adipisicing elit quos non quis ad perspiciatis, totam corporis
+              ea,
+            </p>
+          </div>
+        </div>
+        <div class="row mb-5">
+          <div class="col-12 text-center">
+            <a href="mailto:test@email.com" class="btn btn-primary">Send us mail</a>
+            <p class="m-t-sm">
+              Or follow us on social platform
+            </p>
+            <ul class="list-line social-icon m-0 p-0">
+              <li class="list-inline-item">
+                <a href="#"><i class="fab fa-twitter"></i></a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 text-center mt-m mb-m">
+            <p>
+              <strong>&copy; 2020 Fastcampus</strong><br />
+              consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam
+              corporis ea, alias ut unde.
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <div class="modal fade login-signup" id="login-modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form action="" method="POST">
+            <div class="modal-body p-5">
+              <h4 class="modal-title mb-5">Login</h4>
+              <div class="form-group">
+                <label for="login-email">EMAIL</label>
+                <input
+                  type="text"
+                  id="login-email"
+                  name="email"
+                  class="form-control email"
+                  placeholder="example@gmail.com"
+                />
+              </div>
+              <div class="form-group">
+                <label for="login-password">PASSWORD</label>
+                <input
+                  type="password"
+                  id="login-password"
+                  name="email"
+                  class="form-control email"
+                  placeholder="example@gmail.com"
+                />
+                <a href="" class="navy-link">Login Lost your password?</a>
+              </div>
+            </div>
+            <div class="modal-footer flex-column p-0">
+              <button type="button" class="btn btn-primary align-self-end mr-5">Login</button>
+              <div class="signup-today text-center align-self-stretch flex-fill m-0 mt-3">
+                <p>Don’t have an account?</p>
+                <a href="" class="navy-link">Sign Up Today</a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade login-signup" id="signup-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form action="" method="POST" class="form-horizontal p-5" role="form">
+            <div class="modal-body">
+              <h4 class="modal-title mb-5">Sign Up</h4>
+              <div class="form-group">
+                <label for="signup-email">EMAIL</label>
+                <input
+                  type="text"
+                  id="signup-email"
+                  name="email"
+                  class="form-control email"
+                  placeholder="example@gmail.com"
+                />
+              </div>
+              <div class="form-group">
+                <label for="signup-password">PASSWORD</label>
+                <input
+                  type="password"
+                  id="signup-password"
+                  name="email"
+                  class="form-control email mb-xxs-sm"
+                  placeholder="example@gmail.com"
+                />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">Sign Up</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      (function () {
+        var docElem = document.documentElement,
+          header = document.querySelector('nav.navbar'),
+          didScroll = false,
+          changeHeaderOn = 200;
+
+        function init() {
+          window.addEventListener(
+            'scroll',
+            function (event) {
+              if (!didScroll) {
+                didScroll = true;
+                setTimeout(scrollPage, 250);
+              }
+            },
+            false
+          );
+        }
+
+        function scrollPage() {
+          var sy = scrollY();
+          if (sy >= changeHeaderOn) {
+            header.classList.add('navbar-scroll');
+          } else {
+            header.classList.remove('navbar-scroll');
+          }
+          didScroll = false;
+        }
+        function scrollY() {
+          return window.pageYOffset || docElem.scrollTop;
+        }
+        init();
+      })();
+
+      $(function () {
+        $('.shopping-cart-btn').click(function () {
+          $('.offcanvas').toggleClass('open');
+        });
+        $('.drawer-close').click(function () {
+          $('.offcanvas').removeClass('open');
+        });
+      });
+    </script>
+  </body>
+</html>
